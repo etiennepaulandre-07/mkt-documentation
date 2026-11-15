@@ -1,0 +1,82 @@
+# Caso Kuna: medir el ROMI con una moneda común
+
+Nov 15, 2026 · @Paul Andre Etienne Morales
+
+## Resumen
+
+Con el mismo presupuesto de 390 MM CLP por trimestre, mover inversión según el ROI marginal sube la contribución neta del marketing de 157,8 a 172,4 MM CLP (+9%). La clave es medir todos los canales en una moneda común, margen incremental por peso, y decidir con el próximo peso, no con el promedio.
+
+Kuna es una fintech ficticia: todas las cifras son de ejemplo para estudiar el método, inspirado en el Marketing Navigator de McKinsey.
+
+## Materiales
+
+| Material | Para qué sirve |
+| --- | --- |
+| [Tablero: Caso Kuna](https://claude.ai/artifact/VJkZqMa4UJbdyERU2sMXFE) | El caso en 8 pasos con gráficos, simulador de presupuesto y P&L. Empieza aquí. |
+| [Presentación: fichas de estudio](https://claude.ai/artifact/1iURW5uGNpWqUX4dChwBA2) | 18 láminas dot-dash: Navigator, MMM, atribución, RCQ, moneda común, backtest, accountability e IA. También en [PDF en Drive](https://drive.google.com/file/d/16l9hwXigeV6j8-Z0QMLSsR128Yf4PGdp/view). |
+| [Planilla ROMI en Google Sheets](https://docs.google.com/spreadsheets/d/18CDstN0Za-6hpOtKMPyN43zDPfA_9fA_OWsaZltuG8E/edit) | Las fórmulas vivas: ROMI por canal, test, curvas, adstock, P&L, backtest y fórmulas explicadas. |
+| [Planilla ROMI en Claude](https://claude.ai/artifact/1oXwg7qGq5WdafJ9iAm2Jt) | La misma planilla, editable desde Claude. |
+| [Bibliografía](https://claude.ai/artifact/7zRehPvWF2jnPNisSfxiMM) | Libros, papers y fuentes McKinsey para profundizar. |
+| Skills de Claude | inputs-medicion-romi, framework-medicion-romi y bibliografia-medicion-marketing: aplican el método a un caso real. |
+
+## El caso en 8 pasos
+
+Cada paso responde una pregunta y deja una cifra; el tablero tiene una sección por paso y la planilla, un tab con la fórmula.
+
+1. **La pregunta del CFO.** Las plataformas reportan ROAS 4,2x, pero cada peso deja 1,4x de margen incremental. El ROAS cuenta ventas que habrían llegado igual y no descuenta costos.
+2. **Probar causa.** Un geo holdout da 2,0% de conversión con campaña vs. 1,2% sin campaña: solo el 40% de lo que se atribuye a Google Search lo causó la campaña (z = 6,8; rango al 95%: 29% a 51%).
+3. **Moneda común.** Cada canal se lleva a margen incremental, use MMM, RCQ o atribución corregida. Total: 913 MM de ventas incrementales y 547,8 MM de margen.
+4. **Decidir con el marginal.** Sobre 20% de ROI marginal se sube, bajo 0% se baja. CRM (80%) y TikTok (61%) suben; Sponsorship (−10%) baja; Google Search (5%) está saturado.
+5. **Validar.** El backtest acierta con 4% de error medio (MAPE) en 6 meses que el modelo no vio. Bajo 10%, se puede simular.
+6. **Simular.** Con los mismos 390 MM: menos Sponsorship y Google Search, más TikTok, Meta y CRM. La contribución neta sube 14,6 MM.
+7. **Llevar al P&L.** EBITDA de gestión 1.410 vs. 1.252,2 sin marketing: el aporte del marketing es 157,8 MM, igual a su contribución neta.
+8. **Rendir cuentas.** La proyección se registra antes de mover plata. Al cierre del trimestre siguiente, el margen real quedó a 1,5% de lo proyectado.
+
+## Conceptos clave
+
+**Margen de contribución.** Lo que queda de cada venta después de los costos que suben con ella. En Kuna es 60%: de cada $100 vendidos quedan $60 para pagar marketing, costos fijos y ganancia. Por eso el marketing se mide en margen, no en ventas.
+
+**La cadena de la moneda común**, del ingreso que asignan las plataformas a la contribución neta:
+
+```latex
+\text{Contribución neta} = \underbrace{1.650}_{\text{ingreso asignado}} \times \text{factor} \times 60\% - 390 = 547{,}8 - 390 = 157{,}8
+```
+
+El ROMI divide esa contribución por la inversión: 157,8 ÷ 390 = 40%.
+
+**ROI promedio vs. marginal.** El promedio mira todo lo gastado; el marginal, solo el próximo peso. Un canal puede tener buen promedio y que el peso siguiente ya no se pague. Meta en el caso: promedio 49%, marginal 34%.
+
+```latex
+\text{ROI promedio} = \frac{\text{margen} - \text{inversión}}{\text{inversión}} \qquad \text{ROI marginal} = \frac{\text{margen}(1{,}1x) - \text{margen}(x)}{0{,}1x} - 1
+```
+
+**Curva de Hill.** Describe cómo un canal se satura: cada peso extra rinde menos.
+
+```latex
+\text{margen}(x) = \beta \cdot \frac{x^S}{x^S + K^S}
+```
+
+- β (techo): el margen máximo con gasto infinito. Se calibra para que la curva pase por el margen medido (Meta: 529).
+- K: la inversión con la que el canal llega a la mitad del techo (Meta: 195).
+- S (forma): sobre 1, arranque lento y forma de S; igual o bajo 1, rinde desde el primer peso.
+
+**Backtest y MAPE.** Se entrena el modelo con la historia hasta una fecha y se le pide predecir meses que no vio, con la inversión real de esos meses. MAPE es el error porcentual absoluto medio: el promedio de |real − proyección| ÷ real. El forward test es distinto: la proyección se registra antes y se compara con el futuro.
+
+**P&L de gestión vs. IFRS.** En el estado financiero (IFRS, IAS 38.69(c)) la publicidad es solo gasto y sus ventas se mezclan con todo el ingreso. La contribución neta y el EBITDA sin marketing existen solo en el P&L de gestión, que separa ingreso base de ingreso incremental. Se cierra por mes y la incrementalidad se lee por trimestre, porque parte del efecto se arrastra al mes siguiente.
+
+## Para aplicarlo a un caso real
+
+El método sirve para cualquier negocio con margen de contribución conocido y varios canales. Necesita ocho datos, todos semanales, en la misma moneda y con los mismos nombres de canal:
+
+| Dato | Fuente típica |
+| --- | --- |
+| Inversión por canal | APIs de Meta, Google y TikTok; facturas de lo offline |
+| Ventas y altas | Data warehouse, con la definición de finanzas |
+| Atribución por canal | MMP (Singular) o GA4 |
+| Controles | Precios, promociones, feriados, lanzamientos, macro |
+| Tests de incrementalidad | Geo holdout, grupos de control de CRM, lift de plataformas |
+| Finanzas | Margen de contribución y costos fijos |
+| RCQ | Costo, alcance y calidad de sponsorship y OOH |
+| Registro de proyecciones | Se crea en el proceso |
+
+Un MMM pide unos 2 años de historia semanal con variación de inversión por canal; mientras tanto, tests y atribución corregida. Ajustes: en B2B o ciclo largo se mide con pipeline o LTV, la marca necesita un horizonte más largo que un trimestre y, con presupuesto chico o un solo canal, bastan los tests.
